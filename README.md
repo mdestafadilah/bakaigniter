@@ -15,53 +15,53 @@ Yet another Codeigniter Started Package that used on my projects and licensed un
 ```
 bakaigniter/
 ├─ config/
-│   └─ bakaigniter.php
-├─ core/
-│   ├─ BAKA_Controller.php
-│   ├─ BAKA_Exception.php
-│   └─ BAKA_Loader.php
+│   └─ bakaigniter.php                   # Configuration File
+├─ core_sample/                          # Core Class as Sample,
+│   ├─ BAKA_Controller.php               # BAKA_Controller Class
+│   ├─ BAKA_Exception.php                # BAKA_Exception Class
+│   └─ BAKA_Loader.php                   # BAKA_Loader Class
 ├─ helpers/
-│   ├─ array_helper.php
-│   ├─ asssets_helper.php
-│   ├─ common_helper.php
-│   ├─ data_helper.php
-│   ├─ emailer_helper.php
-│   ├─ former_helper.php
-│   ├─ themee_helper.php
-│   ├─ twbs_helper.php
-│   └─ authr_helper.php
-├─ hooks/
-│   └─ bakaigniter.php
+│   ├─ array_helper.php                  # Helper for array uses
+│   ├─ asssets_helper.php                # Helper for Asssets Library
+│   ├─ common_helper.php                 # Helper for commonly used functions
+│   ├─ data_helper.php                   # Helper for data uses
+│   ├─ emailer_helper.php                # Helper for emailer
+│   ├─ former_helper.php                 # Helper for Former Library
+│   ├─ themee_helper.php                 # Helper for Themee Library
+│   ├─ twbs_helper.php                   # Helper for Twitter Bootstrap
+│   └─ authr_helper.php                  # Helper for Authr Library
+├─ hooks_sample/
+│   └─ bakaigniter.php                   # Sample hooks for Bakaigniter
 ├─ language/
 │   └─ indonesian/
-│   │   └─ bakaigniter_lang.php
+│   │   └─ bakaigniter_lang.php          # Bakaigniter Language file
 └─ libraries/
     ├─ Archive/
     │   ├─ drivers/
-    │   │   └─ Archive_zip.php
-    │   └─ Archive.php
+    │   │   └─ Archive_zip.php           # Zip Driver
+    │   └─ Archive.php                   # Archive Driver
     ├─ Authr/
     │   ├─ drivers/
-    │   │   ├─ Authr_autologin.php
-    │   │   ├─ Authr_login_attempt.php
-    │   │   ├─ Authr_permissions.php
-    │   │   ├─ Authr_role_perms.php
-    │   │   ├─ Authr_roles.php
-    │   │   ├─ Authr_user_log.php
-    │   │   ├─ Authr_user_meta.php
-    │   │   ├─ Authr_user_perms.php
-    │   │   ├─ Authr_user_roles.php
-    │   │   └─ Authr_users.php
-    │   └─ Authr.php
-    ├─ BAKA_Form_validation.php
-    ├─ Asssets.php
-    ├─ Former.php
-    ├─ Gridr.php
-    ├─ Median.php
-    ├─ Messg.php
-    ├─ Setting.php
-    ├─ Themee.php
-    └─ Utily.php
+    │   │   ├─ Authr_autologin.php       # Autologin Driver
+    │   │   ├─ Authr_login_attempt.php   # Login_attempt Driver
+    │   │   ├─ Authr_permissions.php     # Permissions Driver
+    │   │   ├─ Authr_role_perms.php      # Role_perms Driver
+    │   │   ├─ Authr_roles.php           # Roles Driver
+    │   │   ├─ Authr_user_log.php        # User_log Driver
+    │   │   ├─ Authr_user_meta.php       # User_meta Driver
+    │   │   ├─ Authr_user_perms.php      # User_perms Driver
+    │   │   ├─ Authr_user_roles.php      # User_roles Driver
+    │   │   └─ Authr_users.php           # Users Driver
+    │   └─ Authr.php                     # Authr
+    ├─ BAKA_Form_validation_sample.php   # BAKA_Form_validation Sample
+    ├─ Asssets.php                       # Asssets Class Library
+    ├─ Former.php                        # Former Class Library
+    ├─ Gridr.php                         # Gridr Class Library
+    ├─ Median.php                        # Median Class Library
+    ├─ Messg.php                         # Messg Class Library
+    ├─ Setting.php                       # Setting Class Library
+    ├─ Themee.php                        # Themee Class Library
+    └─ Utily.php                         # Utily Class Library
 ```
 
 ## Installation
@@ -76,27 +76,27 @@ bakaigniter/
 
     2a. **Clone this repo** into your:
 
-       ```bash
-       $ git clone git@github.com:feryardiant/bakaigniter.git
-       ```
+        ```bash
+        $ git clone git@github.com:feryardiant/bakaigniter.git
+        ```
 
     2b. **Use it as Submodule** into your:
 
-       ```bash
-       $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
-       ```
+        ```bash
+        $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
+        ```
 
     2c. **Download using wget** archive of this repo and extract it:
 
-       ```bash
-       $ wget https://github.com/feryardiant/bakaigniter/archive/master.tar.gz -O - | tar xz
-       ```
+        ```bash
+        $ wget https://github.com/feryardiant/bakaigniter/archive/master.tar.gz -O - | tar xz
+        ```
 
     2d. **Download using curl** archive of this repo and extract it:
 
-       ```bash
-       $ curl -L https://github.com/feryardiant/bakaigniter/archive/master.tar.gz | tar xz
-       ```
+        ```bash
+        $ curl -L https://github.com/feryardiant/bakaigniter/archive/master.tar.gz | tar xz
+        ```
 
 3. **Import sample tables** from `database.sql` into your database:
 
