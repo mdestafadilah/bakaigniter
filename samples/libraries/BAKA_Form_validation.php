@@ -183,6 +183,12 @@ class BAKA_Form_validation extends CI_Form_validation
 
     // -------------------------------------------------------------------------
 
+    /**
+     * Validate username lenght
+     *
+     * @param   string  $string  Username
+     * @return  bool
+     */
     function valid_username_length( $string )
     {
         $min_length = Setting::get('auth_username_length_min');
@@ -207,6 +213,12 @@ class BAKA_Form_validation extends CI_Form_validation
 
     // -------------------------------------------------------------------------
 
+    /**
+     * Validate password lenght
+     *
+     * @param   string  $string  Password
+     * @return  bool
+     */
     function valid_password_length( $string )
     {
         $min_length = Setting::get('auth_password_length_min');
