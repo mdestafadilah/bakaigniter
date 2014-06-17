@@ -74,29 +74,29 @@ bakaigniter/
 
 2. **Download it**
 
-    * **Clone this repo** into your:
+   * **Clone this repo** into your:
 
-      ```bash
-      $ git clone git@github.com:feryardiant/bakaigniter.git
-      ```
+     ```bash
+     $ git clone git@github.com:feryardiant/bakaigniter.git
+     ```
 
-    * **Use it as Submodule** into your:
+   * **Use it as Submodule** into your:
 
-      ```bash
-      $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
-      ```
+     ```bash
+     $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
+     ```
 
-    * **Download using wget** archive of this repo and extract it:
+   * **Download using wget** archive of this repo and extract it:
 
-      ```bash
-      $ wget https://github.com/feryardiant/bakaigniter/archive/master.tar.gz -O - | tar xz
-      ```
+     ```bash
+     $ wget https://github.com/feryardiant/bakaigniter/archive/master.tar.gz -O - | tar xz
+     ```
 
-    * **Download using curl** archive of this repo and extract it:
+   * **Download using curl** archive of this repo and extract it:
 
-      ```bash
-      $ curl -L https://github.com/feryardiant/bakaigniter/archive/master.tar.gz | tar xz
-      ```
+     ```bash
+     $ curl -L https://github.com/feryardiant/bakaigniter/archive/master.tar.gz | tar xz
+     ```
 
 3. **Import sample tables** from `database.sql` into your database:
 
