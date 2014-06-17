@@ -73,6 +73,7 @@ bakaigniter/
    ```
 
 2. **Download it**
+
     2a. **Clone this repo** into your:
 
        ```bash
@@ -80,27 +81,38 @@ bakaigniter/
        ```
 
     2b. **Use it as Submodule** into your:
+
        ```bash
        $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
        ```
+
     2c. **Download using wget** archive of this repo and extract it:
+
        ```bash
        $ wget https://github.com/feryardiant/bakaigniter/archive/master.tar.gz -O - | tar xz
        ```
+
     2d. **Download using curl** archive of this repo and extract it:
+
        ```bash
        $ curl -L https://github.com/feryardiant/bakaigniter/archive/master.tar.gz | tar xz
        ```
+
 3. **Import sample tables** from `database.sql` into your database:
+
    ```bash
    $ cd bakaigniter
    $ mysql -u{username} [-p{password}] {database} < database.sql
    ```
+
 4. **Recognise it** by edit `APPPATH/config/autoload.php` file:
+
    ```php
    $autoload['packages'] = array(APPPATH.'third_party/bakaigniter');
    ```
+
 5. **Autoload nessesary files**:
+
    ```php
    // Libraries
     $autoload['libraries'] = array(
@@ -126,6 +138,7 @@ bakaigniter/
     // Language
     $autoload['language'] = array('bakaigniter'); // Required!
    ```
+
 6. **Done!**
 
 ## Credits
