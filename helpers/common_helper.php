@@ -59,6 +59,36 @@ function redirect($uri = '', $method = 'location', $http_response_code = 302)
 
 // -----------------------------------------------------------------------------
 
+/**
+ * URL Validation
+ *
+ * @param   string  $url  URL that want tobe validated
+ * @return  bool
+ */
+function is_valid_url($url)
+{
+    $url_pattern = "/^(http(s?):\/\/|(\/\/?))/";
+
+    return preg_match($url_pattern, $url);
+}
+
+// -----------------------------------------------------------------------------
+
+/**
+ * Email Validation
+ *
+ * @param   string  $EMAIL  Email that want tobe validated
+ * @return  bool
+ */
+function is_valid_email($email)
+{
+    $email_pattern = "/([a-zA-Z0-9_\.\-\+]+)@([a-zA-Z0-9\-]+)\.([a-zA-Z0-9\-\.]*)/i";
+
+    return preg_match($email_pattern, $email);
+}
+
+// -----------------------------------------------------------------------------
+
 function return_bytes($val)
 {
     if (!is_string($val))

@@ -84,7 +84,7 @@ class Asssets
 
         $source_file = self::get_asset('js', $id, $source_path, $version);
 
-        if (self::valid_url($source_file))
+        if (is_valid_url($source_file))
         {
             if (isset(self::$_scripts[$pos][$depend]))
             {
@@ -143,7 +143,7 @@ class Asssets
     {
         $source_file = self::get_asset('css', $id, $source_path, $version);
 
-        if (self::valid_url($source_file))
+        if (is_valid_url($source_file))
         {
             if (isset(self::$_styles[$depend]))
             {
@@ -211,7 +211,7 @@ class Asssets
             $output = base_url($path.$source_path);
             // $output = base_url($path.$source_path).$version;
         }
-        else if (self::valid_url($source_path))
+        else if (is_valid_url($source_path))
         {
             $output = $source_path;
             // $output = $source_path.$version;
@@ -222,15 +222,6 @@ class Asssets
         }
 
         return $output;
-    }
-
-    // -------------------------------------------------------------------------
-
-    protected static function valid_url($url)
-    {
-        $url_pattern = "/^(http(s?):\/\/|(\/\/?))/";
-
-        return preg_match($url_pattern, $url) ? TRUE : FALSE;
     }
 }
 
