@@ -38,6 +38,9 @@ $config['baka_app_min_browser']     = array(
     'Internet Explorer' => 8,
     );
 
+// BAKA Igniter Base Path
+$config['baka_base_path']     = dirname(dirname(__FILE__)).'/';
+
 /*
 |--------------------------------------------------------------------------
 | Table name configurations

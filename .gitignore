@@ -40,16 +40,8 @@ nbactions.xml
 # Dependencies Folder
 node_modules/
 bower_components/
-vendor/
 
 # Ignore Application Specifics
-/application/storage/dbs/*
-/application/storage/tmp/*
-/application/storage/logs/*
-/application/storage/cache/*
-/application/storage/upload/*
-/application/storage/backup/*
-/asset/sql/
 
 # but leave there Application Specifics
 !.htaccess
@@ -57,13 +49,4 @@ vendor/
 !.gitattributes
 !.gitignore
 !.editorconfig
-!.afignore
-!.csslintrc
-!.csscomb.json
 !index.html
-!/application/storage/dbs/index.html
-!/application/storage/tmp/index.html
-!/application/storage/logs/index.html
-!/application/storage/cache/index.html
-!/application/storage/uploads/index.html
-!/application/storage/backups/index.html

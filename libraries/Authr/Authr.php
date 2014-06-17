@@ -88,8 +88,6 @@ class Authr extends CI_Driver_Library
      */
     public function __construct()
     {
-        $this->vendor_path = dirname(__FILE__).'/vendor/';
-
         $this->_ci =& get_instance();
 
         $this->_ci->load->helper('cookie');
@@ -129,7 +127,7 @@ class Authr extends CI_Driver_Library
      */
     protected function hash()
     {
-        require_once($this->vendor_path.'PasswordHash.php');
+        require_once(get_conf('base_path').'vendor/PasswordHash.php');
 
         $phpass = new PasswordHash(get_conf('phpass_hash_strength'), get_conf('phpass_hash_portable'));
 
