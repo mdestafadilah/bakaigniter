@@ -82,7 +82,7 @@ class Asssets
     {
         $pos = (!$in_foot ? 'head' : 'foot');
 
-        $source_file = $this->get_asset('js', $id, $source_path, $version);
+        $source_file = $this->_get_asset('js', $id, $source_path, $version);
 
         if (is_valid_url($source_file))
         {
@@ -141,7 +141,7 @@ class Asssets
      */
     public function set_style($id, $source_path, $depend = '', $version = NULL)
     {
-        $source_file = $this->get_asset('css', $id, $source_path, $version);
+        $source_file = $this->_get_asset('css', $id, $source_path, $version);
 
         if (is_valid_url($source_file))
         {
