@@ -67,14 +67,18 @@ bakaigniter/
 ## Installation
 
 1. **Move to** `third_party` folder:
+
    ```bash
    $ cd APPPATH/third_party
    ```
+
 2. **Download it**
     2a. **Clone this repo** into your:
+
        ```bash
        $ git clone git@github.com:feryardiant/bakaigniter.git
        ```
+
     2b. **Use it as Submodule** into your:
        ```bash
        $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
