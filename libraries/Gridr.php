@@ -67,15 +67,15 @@ class Gridr
             $this->initialize($configs);
         }
 
-        Asssets::set_script('datatable',            'lib/jquery.dataTables.min.js', 'jquery', '2.0.3');
-        Asssets::set_script('dataTables.bootstrap', 'lib/bootstrap.datatables.js', 'datatable', '2.0.3');
+        set_script('datatable',            'lib/jquery.dataTables.min.js', 'jquery', '2.0.3');
+        set_script('dataTables.bootstrap', 'lib/bootstrap.datatables.js', 'datatable', '2.0.3');
         // Asssets::set_style('datatable', 'lib/jquery.dataTables.css');
 
         $script = "$('.table-dt').dataTable({"
                 . "    'dom': '<\'dt-header\'lf>t<\'dt-footer\'ip>'"
                 . "});";
 
-        Asssets::set_script('datatable-trigger', $script, 'datatable');
+        set_script('datatable-trigger', $script, 'datatable');
 
         log_message('debug', "#BakaIgniter: Gridr Library Class Initialized");
     }

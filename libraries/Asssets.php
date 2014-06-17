@@ -24,44 +24,44 @@ class Asssets
      *
      * @var  resource
      */
-    protected static $_ci;
+    protected $_ci;
 
     /**
      * Configurations
      *
      * @var  array
      */
-    protected static $configs   = array();
+    protected $configs   = array();
 
     /**
      * Datas
      *
      * @var  array
      */
-    protected static $_data     = array();
+    protected $_data     = array();
 
     /**
      * Scripts Wrapper
      *
      * @var  array
      */
-    protected static $_scripts  = array();
+    protected $_scripts  = array();
 
     /**
      * Styles Wrapper
      *
      * @var  array
      */
-    protected static $_styles   = array();
+    protected $_styles   = array();
 
     /**
      * Class Constructor
      */
     public function __construct()
     {
-        self::$_ci =& get_instance();
+        $this->_ci =& get_instance();
 
-        self::$_ci->load->helper('asssets');
+        $this->_ci->load->helper('baka_asssets');
 
         log_message('debug', "#BakaIgniter: Asssets Class Initialized");
     }
@@ -78,17 +78,17 @@ class Asssets
      * @param   bool    $in_foot      load in foot or head
      * @return  void
      */
-    public static function set_script($id, $source_path, $depend = '', $version = '', $in_foot = TRUE)
+    public function set_script($id, $source_path, $depend = '', $version = '', $in_foot = TRUE)
     {
         $pos = (!$in_foot ? 'head' : 'foot');
 
-        $source_file = self::get_asset('js', $id, $source_path, $version);
+        $source_file = $this->get_asset('js', $id, $source_path, $version);
 
         if (is_valid_url($source_file))
         {
-            if (isset(self::$_scripts[$pos][$depend]))
+            if (isset($this->_scripts[$pos][$depend]))
             {
-                foreach (self::$_scripts[$pos] as $dep_id => $dep_url)
+                foreach ($this->_scripts[$pos] as $dep_id => $dep_url)
                 {
                     $temp_scripts[$dep_id] = $dep_url;
 
@@ -98,16 +98,16 @@ class Asssets
                     }
                 }
 
-                self::$_scripts[$pos] = $temp_scripts;
+                $this->_scripts[$pos] = $temp_scripts;
             }
             else
             {
-                self::$_scripts[$pos][$id] = $source_file;
+                $this->_scripts[$pos][$id] = $source_file;
             }
         }
         else
         {
-            self::$_scripts['src'][$id] = $source_file;
+            $this->_scripts['src'][$id] = $source_file;
         }
     }
 
@@ -118,11 +118,11 @@ class Asssets
      *
      * @return  array
      */
-    public static function get_script($pos)
+    public function get_script($pos)
     {
-        if (isset(self::$_scripts[$pos]))
+        if (isset($this->_scripts[$pos]))
         {
-            return self::$_scripts[$pos];
+            return $this->_scripts[$pos];
         }
 
         return FALSE;
@@ -139,15 +139,15 @@ class Asssets
      * @param   string  $version      Version number of the style
      * @return  void
      */
-    public static function set_style($id, $source_path, $depend = '', $version = NULL)
+    public function set_style($id, $source_path, $depend = '', $version = NULL)
     {
-        $source_file = self::get_asset('css', $id, $source_path, $version);
+        $source_file = $this->get_asset('css', $id, $source_path, $version);
 
         if (is_valid_url($source_file))
         {
-            if (isset(self::$_styles[$depend]))
+            if (isset($this->_styles[$depend]))
             {
-                foreach (self::$_styles as $dep_id => $dep_url)
+                foreach ($this->_styles as $dep_id => $dep_url)
                 {
                     $temp_styles[$dep_id] = $dep_url;
 
@@ -157,16 +157,16 @@ class Asssets
                     }
                 }
 
-                self::$_styles = $temp_styles;
+                $this->_styles = $temp_styles;
             }
             else
             {
-                self::$_styles[$id] = $source_file;
+                $this->_styles[$id] = $source_file;
             }
         }
         else
         {
-            self::$_styles['src'][$id] = $source_file;
+            $this->_styles['src'][$id] = $source_file;
         }
     }
 
@@ -177,11 +177,11 @@ class Asssets
      *
      * @return  array
      */
-    public static function get_styles()
+    public function get_styles()
     {
-        if (isset(self::$_styles))
+        if (isset($this->_styles))
         {
-            return self::$_styles;
+            return $this->_styles;
         }
 
         return FALSE;
@@ -198,12 +198,11 @@ class Asssets
      * @param   string  $version      Asset Version number
      * @return  string
      */
-    protected static function get_asset($type, $id, $source_path, $version = '')
+    protected function _get_asset($type, $id, $source_path, $version = '')
     {
         $version || $version = get_conf('app_version');
-        $path   = get_conf('asset_path_prefix').$type.'/';
-        $output = '';
-
+        $path    = get_conf('asset_path_prefix').$type.'/';
+        $output  = '';
         $version = (strpos($source_path, '?') !== FALSE ? '&' :  '?').'ver='.$version;
 
         if (file_exists(FCPATH.$path.$source_path))

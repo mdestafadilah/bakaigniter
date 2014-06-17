@@ -244,7 +244,7 @@ class Former
             $this->set_template($attrs['template']);
         }
 
-        Asssets::set_script('former-script', $this->_scripts($attrs['fields']), 'baka-pack');
+        set_script('former-script', $this->_scripts($attrs['fields']), 'baka-pack');
 
         return $this;
     }
@@ -683,7 +683,7 @@ class Former
                 case 'number':
                 case 'spinner':
                     $jqui_load = TRUE;
-                    Asssets::set_script('jqui-spinner', $jqui_path.'spinner.min.js', 'jqui-core', '1.10.4');
+                    set_script('jqui-spinner', $jqui_path.'spinner.min.js', 'jqui-core', '1.10.4');
 
                     if (!isset($min)) $min = 0;
                     if (!isset($max)) $max = 10;
@@ -711,7 +711,7 @@ class Former
                             . "    }\n"
                             . "});";
 
-                    Asssets::set_script('jqui-spinner-trigger', $script, 'jqui-spinner');
+                    set_script('jqui-spinner-trigger', $script, 'jqui-spinner');
 
                     $input = form_input(array(
                             'name'              => $name,
@@ -725,7 +725,7 @@ class Former
                 case 'slider':
                 case 'rangeslider':
                     $jqui_load = TRUE;
-                    Asssets::set_script('jqui-slider', $jqui_path.'slider.min.js', 'jqui-core', '1.10.4');
+                    set_script('jqui-slider', $jqui_path.'slider.min.js', 'jqui-core', '1.10.4');
 
                     if (!isset($min))
                     {
@@ -817,7 +817,7 @@ class Former
 
                     $script .= "});";
 
-                    Asssets::set_script('jqui-'.$type.'-trigger', $script, 'jqui-slider');
+                    set_script('jqui-'.$type.'-trigger', $script, 'jqui-slider');
 
                     $slider_attrs = array(
                         'class'              => 'jqui-'.$type,
@@ -875,8 +875,8 @@ class Former
                 // Date picker field
                 case 'date':
                 case 'datepicker':
-                    Asssets::set_script('bt-datepicker', 'lib/bootstrap.datepicker.js', 'bootstrap', '1.1.1');
-                    Asssets::set_script('bt-datepicker-id', 'lib/bootstrap.datepicker.id.js', 'bt-datepicker', '1.1.1');
+                    set_script('bt-datepicker', 'lib/bootstrap.datepicker.js', 'bootstrap', '1.1.1');
+                    set_script('bt-datepicker-id', 'lib/bootstrap.datepicker.id.js', 'bt-datepicker', '1.1.1');
 
                     $script = "$('.bs-datepicker').datepicker({\n"
                             . "    format: 'dd-mm-yyyy',\n"
@@ -885,7 +885,7 @@ class Former
                             . "    todayBtn: true\n"
                             . "});";
 
-                    Asssets::set_script('dp-trigger', $script, 'bt-datepicker');
+                    set_script('dp-trigger', $script, 'bt-datepicker');
 
                     $input = '<div class="has-feedback">';
                     $input .= form_input(array(
@@ -902,8 +902,8 @@ class Former
                 // Using CI form_textarea() function.
                 // adding jquery-autosize.js to make it more useful
                 case 'textarea':
-                    Asssets::set_script('jquery-autosize', 'lib/jquery.autosize.min.js', 'jquery', '1.18.0');
-                    Asssets::set_script('autosize-trigger', "$('textarea').autosize();\n", 'jquery-autosize');
+                    set_script('jquery-autosize', 'lib/jquery.autosize.min.js', 'jquery', '1.18.0');
+                    set_script('autosize-trigger', "$('textarea').autosize();\n", 'jquery-autosize');
 
                     $input = form_textarea(array(
                             'name'  => $name,
@@ -947,9 +947,9 @@ class Former
                 case 'multiselect':
                 case 'dropdown':
                 case 'select2':
-                    Asssets::set_script('select2', 'lib/select2.min.js', 'jquery', '3.4.5');
-                    Asssets::set_script('select2', 'lib/select2.id.js', 'jquery', '3.4.5');
-                    Asssets::set_script('select2-trigger', "$('.form-control-select2').select2();\n", 'select2');
+                    set_script('select2', 'lib/select2.min.js', 'jquery', '3.4.5');
+                    set_script('select2', 'lib/select2.id.js', 'jquery', '3.4.5');
+                    set_script('select2-trigger', "$('.form-control-select2').select2();\n", 'select2');
 
                     $attr = 'class="form-control-select2 '.$input_class.'" id="'.$id.'" '.$attr;
 
@@ -969,7 +969,7 @@ class Former
 
                 // Bootstrap Switch field
                 case 'switch':
-                    Asssets::set_script('bs-switch', 'lib/bootstrap.switch.min.js', 'bootstrap', '3.0.0');
+                    set_script('bs-switch', 'lib/bootstrap.switch.min.js', 'bootstrap', '3.0.0');
 
                     if (!isset($option))
                     {
@@ -979,7 +979,7 @@ class Former
                             );
                     }
 
-                    Asssets::set_script('bs-switch-trigger', "$('.bs-switch').bootstrapSwitch();", 'bs-switch');
+                    set_script('bs-switch-trigger', "$('.bs-switch').bootstrapSwitch();", 'bs-switch');
 
                     $_id = str_replace('-', '-', $name);
                     $std = (int) $std;
@@ -1091,7 +1091,7 @@ class Former
                             . "     e.preventDefault();\n"
                             . "});";
 
-                    Asssets::set_script('collcaptha-trigger', $script);
+                    set_script('collcaptha-trigger', $script);
 
                     if (!extension_loaded('gd'))
                     {
@@ -1102,12 +1102,12 @@ class Former
 
                 // Summernote editor
                 case 'editor':
-                    Asssets::set_script('summernote',     'lib/summernote.min.js', 'bootstrap', '0.5.2');
-                    Asssets::set_script('summernote-id',  'lib/summernote.id-ID.js', 'summernote', '0.5.2');
-                    Asssets::set_script('codemirror',     'lib/codemirror.js', 'jquery', '4.1');
-                    Asssets::set_script('codemirror.xml', 'lib/codemirror.mode.xml.js', 'codemirror', '4.1');
-                    // Asssets::set_script('jquery-mousewheel', 'lib/jquery.mousewheel.min.js', 'jquery', '3.1.0');
-                    // Asssets::set_script('perfectscrollbar', 'lib/perfect-scrollbar.js', 'jquery', '0.4.10');
+                    set_script('summernote',     'lib/summernote.min.js', 'bootstrap', '0.5.2');
+                    set_script('summernote-id',  'lib/summernote.id-ID.js', 'summernote', '0.5.2');
+                    set_script('codemirror',     'lib/codemirror.js', 'jquery', '4.1');
+                    set_script('codemirror.xml', 'lib/codemirror.mode.xml.js', 'codemirror', '4.1');
+                    // set_script('jquery-mousewheel', 'lib/jquery.mousewheel.min.js', 'jquery', '3.1.0');
+                    // set_script('perfectscrollbar', 'lib/perfect-scrollbar.js', 'jquery', '0.4.10');
 
                     if (!isset($height))
                     {
@@ -1136,7 +1136,7 @@ class Former
                             . "    $('.summernote').val($('.summernote').code());\n"
                             . "});";
 
-                    Asssets::set_script('summernote-trigger', $script, 'summernote');
+                    set_script('summernote-trigger', $script, 'summernote');
 
                     $input = form_textarea(array(
                             'name'  => $name,
@@ -1164,13 +1164,13 @@ class Former
 
             if ($jqui_load)
             {
-                Asssets::set_script('jqui-core',         $jqui_path.'core.min.js', 'jquery', '1.10.4');
-                Asssets::set_script('jqui-widget',       $jqui_path.'widget.min.js', 'jqui-core', '1.10.4');
-                Asssets::set_script('jqui-button',       $jqui_path.'button.min.js', 'jqui-widget', '1.10.4');
-                Asssets::set_script('jqui-mouse',        $jqui_path.'mouse.min.js', 'jqui-widget', '1.10.4');
-                Asssets::set_script('jqui-position',     $jqui_path.'position.min.js', 'jqui-widget', '1.10.4');
-                Asssets::set_script('jqui-touch',        'lib/jquery.ui.touch-punch.min.js', 'jqui-mouse', '0.2.3');
-                Asssets::set_script('jquery-mousewheel', 'lib/jquery.mousewheel.min.js', 'jquery', '3.1.0');
+                set_script('jqui-core',         $jqui_path.'core.min.js', 'jquery', '1.10.4');
+                set_script('jqui-widget',       $jqui_path.'widget.min.js', 'jqui-core', '1.10.4');
+                set_script('jqui-button',       $jqui_path.'button.min.js', 'jqui-widget', '1.10.4');
+                set_script('jqui-mouse',        $jqui_path.'mouse.min.js', 'jqui-widget', '1.10.4');
+                set_script('jqui-position',     $jqui_path.'position.min.js', 'jqui-widget', '1.10.4');
+                set_script('jqui-touch',        'lib/jquery.ui.touch-punch.min.js', 'jqui-mouse', '0.2.3');
+                set_script('jquery-mousewheel', 'lib/jquery.mousewheel.min.js', 'jquery', '3.1.0');
             }
 
             if (isset($input))

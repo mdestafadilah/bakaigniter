@@ -13,13 +13,17 @@
 
 function set_script($id, $source, $depend = '' , $version = '', $in_foot = TRUE )
 {
-    return Asssets::set_script($id, $source, $depend, $version, $in_foot);
+    $asssets =& get_instance()->asssets;
+
+    return $asssets->set_script($id, $source, $depend, $version, $in_foot);
 }
 
 // -----------------------------------------------------------------------------
 
 function load_scripts($pos)
 {
+    $asssets =& get_instance()->asssets;
+
     $output = '';
     $attr   = 'type="text/javascript"';
 
@@ -28,7 +32,7 @@ function load_scripts($pos)
         'charset' => get_charset(),
         ));
 
-    if ($scripts = Asssets::get_script($pos))
+    if ($scripts = $asssets->get_script($pos))
     {
         $output .= "<!-- ".ucfirst($pos)."er Scripts -->\n";
 
@@ -42,7 +46,7 @@ function load_scripts($pos)
             $output .= "<script $script_attr $base_attr></script>\n";
         }
 
-        $adds = Asssets::get_script('src');
+        $adds = $asssets->get_script('src');
 
         if ($pos == 'foot' and $adds != FALSE)
         {
@@ -56,7 +60,7 @@ function load_scripts($pos)
 
                 $i++;
 
-                if ($i > 0 and $i != count(Asssets::get_script('src')))
+                if ($i > 0 and $i != count($asssets->get_script('src')))
                 {
                     $output .= "\n\n";
                 }
@@ -73,15 +77,19 @@ function load_scripts($pos)
 
 function set_style($id, $source, $depend = '' , $version = NULL )
 {
-    return Asssets::set_style($id, $source, $depend, $version);
+    $asssets =& get_instance()->asssets;
+
+    return $asssets->set_style($id, $source, $depend, $version);
 }
 
 // -----------------------------------------------------------------------------
 
 function load_styles()
 {
+    $asssets =& get_instance()->asssets;
+
     $output  = '';
-    $styles  = Asssets::get_styles();
+    $styles  = $asssets->get_styles();
 
     // put additional stylesheet into defferent plase ;)
     if (isset($styles['src']))

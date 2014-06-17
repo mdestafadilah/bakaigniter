@@ -149,7 +149,7 @@ class Median
     public function template()
     {
         // Load the JS
-        Asssets::set_script('jq-fineuploader', 'lib/jquery.fineuploader.min.js', 'bootstrap', '4.4.0');
+        set_script('jq-fineuploader', 'lib/jquery.fineuploader.min.js', 'bootstrap', '4.4.0');
 
         $upload_path = str_replace(FCPATH, '', $this->destination);
 
@@ -227,7 +227,7 @@ class Median
                 . "    });\n"
                 . "});";
 
-        Asssets::set_script('jq-fineuploader-trigger', $script, 'jq-fineuploader');
+        set_script('jq-fineuploader-trigger', $script, 'jq-fineuploader');
 
         // Default qq-template
         $out = '<script type="text/template" id="qq-template">'
