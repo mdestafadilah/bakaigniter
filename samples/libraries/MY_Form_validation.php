@@ -11,7 +11,7 @@
 // -----------------------------------------------------------------------------
 
 /**
- * BAKA Form Validation Class
+ * MY Form Validation Class
  *
  * Pre-processes global input data for security
  * Extending native CI Form Validation
@@ -19,24 +19,8 @@
  * @subpackage  Libraries
  * @category    Validation
  */
-class BAKA_Form_validation extends CI_Form_validation
+class MY_Form_validation extends CI_Form_validation
 {
-    /**
-     * Default Class Constructor
-     * 
-     * @param   array
-     * 
-     * @return  void
-     */
-    function __construct( $rules = array() )
-    {
-        parent::__construct( $rules );
-
-        log_message('debug', "#BakaIgniter: Core Form_validation Class Initialized");
-    }
-
-    // -------------------------------------------------------------------------
-
     /**
      * Validating Google reCaptcha input from user form
      * 
