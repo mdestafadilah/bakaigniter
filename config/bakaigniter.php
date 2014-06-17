@@ -41,6 +41,9 @@ $config['baka_app_min_browser']     = array(
 // Baka Igniter Base Path
 $config['baka_base_path']           = dirname(dirname(__FILE__)).'/';
 
+// Baka Igniter Asset path prefix
+$config['baka_asset_path_prefix']   = 'asset/';
+
 /*
 |--------------------------------------------------------------------------
 | Table name configurations

@@ -201,7 +201,7 @@ class Asssets
     protected static function get_asset($type, $id, $source_path, $version = '')
     {
         $version || $version = get_conf('app_version');
-        $path   = 'asset/'.$type.'/';
+        $path   = get_conf('asset_path_prefix').$type.'/';
         $output = '';
 
         $version = (strpos($source_path, '?') !== FALSE ? '&' :  '?').'ver='.$version;
@@ -209,12 +209,10 @@ class Asssets
         if (file_exists(FCPATH.$path.$source_path))
         {
             $output = base_url($path.$source_path);
-            // $output = base_url($path.$source_path).$version;
         }
         else if (is_valid_url($source_path))
         {
             $output = $source_path;
-            // $output = $source_path.$version;
         }
         else
         {
