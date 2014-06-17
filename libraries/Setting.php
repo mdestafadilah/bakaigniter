@@ -49,9 +49,6 @@ class Setting
         // Load CI super object
         self::$_ci =& get_instance();
 
-        // Load Setting helper
-        // self::$_ci->load->helper('BakaIgniter/setting');
-
         self::$_table_name = get_conf('system_opt_table');
 
         self::init();

@@ -45,7 +45,7 @@ class Themee
 
         self::$_ci->load->library('user_agent');
         self::$_ci->load->library('asssets');
-        self::$_ci->load->helpers(array('themee', 'html', 'former', 'twbs'));
+        self::$_ci->load->helpers(array('baka_themee', 'baka_html', 'baka_former', 'baka_twbs'));
 
         // Setup body classes & id
         $this->set_body_attr('id', self::$_ci->router->fetch_class() );

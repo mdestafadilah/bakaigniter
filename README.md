@@ -13,16 +13,16 @@ bakaigniter/
 ├─ config
 │  └─ bakaigniter.php
 ├─ helpers
-│  ├─ array_helper.php
-│  ├─ asssets_helper.php
-│  ├─ authr_helper.php
-│  ├─ common_helper.php
-│  ├─ data_helper.php
-│  ├─ emailer_helper.php
-│  ├─ former_helper.php
-│  ├─ recaptcha_helper.php
-│  ├─ themee_helper.php
-│  └─ twbs_helper.php
+│  ├─ baka_array_helper.php
+│  ├─ baka_asssets_helper.php
+│  ├─ baka_authr_helper.php
+│  ├─ baka_common_helper.php
+│  ├─ baka_data_helper.php
+│  ├─ baka_emailer_helper.php
+│  ├─ baka_former_helper.php
+│  ├─ baka_recaptcha_helper.php
+│  ├─ baka_themee_helper.php
+│  └─ baka_twbs_helper.php
 ├─ language
 │  └─ indonesian
 │      └─ bakaigniter_lang.php
@@ -56,17 +56,10 @@ bakaigniter/
 └─ samples
     ├─ config
     │  ├─ autoload.php
-    │  ├─ config.php
     │  └─ constants.php
-    ├─ core
-    │  ├─ BAKA_Controller.php
-    │  ├─ BAKA_Exceptions.php
-    │  └─ BAKA_Loader.php
-    ├─ database.sql
-    ├─ hooks
-    │  └─ bakaigniter.php
     └─ libraries
-        └─ BAKA_Form_validation.php
+    │   └─ BAKA_Form_validation.php
+    └─ database.sql
 
 ```
 
