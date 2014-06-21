@@ -72,15 +72,15 @@ class Authr extends CI_Driver_Library
      */
     public $valid_drivers = array(
         'authr_autologin',
-        'authr_user_log',
         'authr_login_attempt',
         'authr_permissions',
         'authr_role_perms',
         'authr_roles',
+        'authr_users',
         'authr_user_meta',
         'authr_user_perms',
         'authr_user_roles',
-        'authr_users',
+        // 'authr_user_log',
         );
 
     /**
@@ -90,9 +90,8 @@ class Authr extends CI_Driver_Library
     {
         $this->_ci =& get_instance();
 
-        $this->_ci->load->helper('cookie');
         $this->_ci->load->library('session');
-        $this->_ci->load->helper('authr');
+        $this->_ci->load->helpers(array('cookie', 'baka_authr'));
         
         $this->db = $this->_ci->db;
 
@@ -127,9 +126,9 @@ class Authr extends CI_Driver_Library
      */
     protected function hash()
     {
-        require_once(get_conf('base_path').'vendor/PasswordHash.php');
+        require_once( get_conf('base_path').'vendor/PasswordHash.php' );
 
-        $phpass = new PasswordHash(get_conf('phpass_hash_strength'), get_conf('phpass_hash_portable'));
+        $phpass = new PasswordHash( get_conf('phpass_hash_strength'), get_conf('phpass_hash_portable') );
 
         return $phpass;
     }
@@ -143,9 +142,9 @@ class Authr extends CI_Driver_Library
      *
      * @return  string
      */
-    protected function do_hash($password)
+    protected function do_hash( $password )
     {
-        return $this->hash()->HashPassword($password);
+        return $this->hash()->HashPassword( $password );
     }
 
     // -------------------------------------------------------------------------
@@ -158,7 +157,7 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool
      */
-    protected function validate($new_pass, $old_pass)
+    protected function validate( $new_pass, $old_pass )
     {
         return $this->hash()->CheckPassword($new_pass, $old_pass);
     }
@@ -175,13 +174,13 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool
      */
-    public function login($login, $password, $remember)
+    public function login( $login, $password, $remember )
     {
         // Fail - wrong login
         if (!($user = $this->users->get($login, login_by())))
         {
             $this->login_attempt->increase($login);
-            Messg::set('error', _x('auth_incorrect_login'));
+            set_message('error', _x('auth_incorrect_login'));
             return FALSE;
         }
 
@@ -189,21 +188,21 @@ class Authr extends CI_Driver_Library
         if (!$this->validate($password, $user->password))
         {
             $this->login_attempt->increase($login);
-            Messg::set('error', _x('auth_incorrect_password'));
+            set_message('error', _x('auth_incorrect_password'));
             return FALSE;
         }
 
         // Fail - banned
         if ($user->banned == 1)
         {
-            Messg::set('error', _x('auth_banned_account', $user->ban_reason));
+            set_message('error', _x('auth_banned_account', $user->ban_reason));
             return FALSE;
         }
 
         // Fail - deleted
         if ($user->deleted == 1)
         {
-            Messg::set('error', _x('auth_deleted_account'));
+            set_message('error', _x('auth_deleted_account'));
             return FALSE;
         }
 
@@ -221,7 +220,7 @@ class Authr extends CI_Driver_Library
         // Fail - not activated
         if ($user->activated == 0)
         {
-            Messg::set('error', _x('auth_inactivated_account'));
+            set_message('error', _x('auth_inactivated_account'));
             return FALSE;
         }
         else
@@ -243,16 +242,16 @@ class Authr extends CI_Driver_Library
         if ((bool) $remember)
         {
             // create auto login
-            $this->create_autologin($user->id);
+            $this->create_autologin( $user->id );
         }
 
         // clean login attempts
-        $this->login_attempt->clear($user->username);
+        $this->login_attempt->clear( $user->username );
 
         // update login info
         $this->users->update_login_info($user->id);
 
-        Messg::set('success', _x('auth_login_success'));
+        set_message('success', _x('auth_login_success'));
         return TRUE;
     }
 
@@ -282,7 +281,7 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool
      */
-    public function is_logged_in($activated = TRUE)
+    public function is_logged_in( $activated = TRUE )
     {
         return $this->_ci->session->userdata('status') === bool_to_int($activated) and !IS_CLI;
     }
@@ -330,7 +329,7 @@ class Authr extends CI_Driver_Library
      *
      * @return  array
      */
-    public function get_current_user($data_key = '')
+    public function get_current_user( $data_key = '' )
     {
         $user_data = $this->_ci->session->all_userdata();
 
@@ -354,7 +353,7 @@ class Authr extends CI_Driver_Library
      * @param   bool
      * @return  array
      */
-    public function create_user($username, $email, $password, $roles = array())
+    public function create_user( $username, $email, $password, $roles = array() )
     {
         $user_data = array(
             'username'  => $username,
@@ -362,7 +361,7 @@ class Authr extends CI_Driver_Library
             'email'     => $email
             );
 
-        $email_activation = (bool) Setting::get('auth_email_activation');
+        $email_activation = (bool) get_setting('auth_email_activation');
 
         if ($email_activation)
         {
@@ -375,11 +374,11 @@ class Authr extends CI_Driver_Library
 
         if (!($user_id = $this->add_user($user_data, !$email_activation, $roles)))
         {
-            Messg::set('error', 'ERROR! Tidak dapat menambahkan '.$username.' sebagai pengguna baru.');
+            set_message('error', 'ERROR! Tidak dapat menambahkan '.$username.' sebagai pengguna baru.');
             return FALSE;
         }
 
-        Messg::set('success', $username.' berhasil ditambahkan sebagai pengguna baru.');
+        set_message('success', $username.' berhasil ditambahkan sebagai pengguna baru.');
         return TRUE;
     }
 
@@ -397,26 +396,26 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool
      */
-    public function update_user($user_id, $username, $email, $old_pass, $new_pass, $roles = array())
+    public function update_user( $user_id, $username, $email, $old_pass, $new_pass, $roles = array() )
     {
         $user = $this->users->get($user_id);
+        $return = FALSE;
+
         $data = array(
             'username' => $username,
             'email'    => $email,
             );
 
-        $return = FALSE;
-
         if (strlen($old_pass) > 0 and strlen($new_pass) > 0)
         {
             if (!$this->validate($old_pass, $user->password))
             {
-                Messg::set('error', _x('auth_incorrect_password'));
+                set_message('error', _x('auth_incorrect_password'));
                 $return = FALSE;
             }
             else if ($this->validate($new_pass, $user->password))
             {
-                Messg::set('error', _x('auth_current_password'));
+                set_message('error', _x('auth_current_password'));
                 $return = FALSE;
             }
             else
@@ -432,7 +431,7 @@ class Authr extends CI_Driver_Library
 
         if ($this->users->edit($user_id, $data))
         {
-            Messg::set('success', 'Berhasil mengubah data pengguna '.$username);
+            set_message('success', 'Berhasil mengubah data pengguna '.$username);
             $return = TRUE;
         }
 
@@ -450,7 +449,7 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool|array
      */
-    public function change_email($email, $user_id = NULL)
+    public function change_email( $email, $user_id = NULL )
     {
         if (is_null($user_id))
         {
@@ -482,7 +481,7 @@ class Authr extends CI_Driver_Library
         }
         else
         {
-            Messg::set('error', _x('auth_email_in_use'));
+            set_message('error', _x('auth_email_in_use'));
             return FALSE;
         }
     }
@@ -497,7 +496,7 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool
      */
-    public function activate($user_id, $activation_key)
+    public function activate( $user_id, $activation_key )
     {
         $this->purge_na();
         return $this->activate_user($user_id, $activation_key);
@@ -513,11 +512,11 @@ class Authr extends CI_Driver_Library
      * @param   string
      * @return  array
      */
-    public function forgot_pass($login)
+    public function forgot_pass( $login )
     {
         if (!($user = $this->get_user_by_login($login)))
         {
-            Messg::set('error', _x('auth_incorrect_login'));
+            set_message('error', _x('auth_incorrect_login'));
             return FALSE;
         }
 
@@ -542,23 +541,25 @@ class Authr extends CI_Driver_Library
      * @param   string
      * @return  bool
      */
-    public function reset_pass($user_id, $new_pass_key, $new_password)
+    public function reset_pass( $user_id, $new_pass_key, $new_password )
     {
         if (!($user = $this->get_user_by_id($user_id, TRUE)))
+        {
             return FALSE;
+        }
 
-        if ($this->reset_password($user_id, $this->do_hash($new_password), $new_pass_key, get_conf('forgot_password_expire')))
+        if ( $this->users->reset_password($user_id, $this->do_hash($new_password), $new_pass_key, get_conf('forgot_password_expire')))
         {
             // success
             // Clear all user's autologins
-            $this->clear_autologin($user->id);
+            $this->clear_autologin( $user->id );
 
-            return array(
+            return $this->bakaigniter->send_email( $user->email, 'lang:activate', array(
                 'user_id'       => $user_id,
                 'username'      => $user->username,
                 'email'         => $user->email,
                 'new_password'  => $new_password
-                );
+                ));
         }
 
         return FALSE;
@@ -575,7 +576,7 @@ class Authr extends CI_Driver_Library
      *
      * @return  bool
      */
-    public function change_pass($old_pass, $new_pass)
+    public function change_pass( $old_pass, $new_pass )
     {
         $user_id = $this->get_user_id();
 
@@ -585,7 +586,7 @@ class Authr extends CI_Driver_Library
         // Check if old password incorrect
         if (!$this->validate($old_pass, $user->password))
         {
-            Messg::set('error', _x('auth_incorrect_password'));
+            set_message('error', _x('auth_incorrect_password'));
             return FALSE;
         }
 
@@ -604,7 +605,7 @@ class Authr extends CI_Driver_Library
      * @param   string
      * @return  array
      */
-    public function set_new_email($new_email, $password)
+    public function set_new_email( $new_email, $password )
     {
         $user_id = $this->get_user_id();
 
@@ -616,7 +617,7 @@ class Authr extends CI_Driver_Library
         // Check if password incorrect
         if (!$this->validate($password, $user->password))
         {
-            Messg::set('error', _x('auth_incorrect_password'));
+            set_message('error', _x('auth_incorrect_password'));
             return FALSE;
         }
 
@@ -629,7 +630,7 @@ class Authr extends CI_Driver_Library
 
         if ($user->email == $new_email)
         {
-            Messg::set('error', _x('auth_current_email'));
+            set_message('error', _x('auth_current_email'));
             return FALSE;
         }
         elseif ($user->new_email == $new_email)
@@ -646,7 +647,7 @@ class Authr extends CI_Driver_Library
         }
         else
         {
-            Messg::set('error', _x('auth_email_in_use'));
+            set_message('error', _x('auth_email_in_use'));
             return FALSE;
         }
     }
@@ -659,16 +660,16 @@ class Authr extends CI_Driver_Library
      * @param   string
      * @return  bool
      */
-    public function remove_user($user_id, $purge = FALSE)
+    public function remove_user( $user_id, $purge = FALSE )
     {
         if (!$this->users->delete($user_id))
         {
-            Messg::set('error', 'Gagal menghapus pengguna');
+            set_message('error', 'Gagal menghapus pengguna');
             return FALSE;
         }
 
         // success
-        Messg::set('success', 'Berhasil menghapus pengguna');
+        set_message('success', 'Berhasil menghapus pengguna');
         return TRUE;
     }
 
@@ -680,7 +681,7 @@ class Authr extends CI_Driver_Library
      * @param   string
      * @return  bool
      */
-    public function _delete_user($password)
+    public function _delete_user( $password )
     {
         $user_id = $this->get_user_id();
 
@@ -691,7 +692,7 @@ class Authr extends CI_Driver_Library
             
         if (!$this->validate($password, $user->password))
         {   
-            Messg::set('error', _x('auth_incorrect_password'));
+            set_message('error', _x('auth_incorrect_password'));
             return FALSE;
         }
 
@@ -711,12 +712,19 @@ class Authr extends CI_Driver_Library
     private function _autologin()
     {
         if (self::is_logged_in() AND self::is_logged_in(FALSE))
+        {
             return FALSE;
+        }
 
-        $cookie_name = get_conf('autologin_cookie_name');
+        $cookie_name_conf = 'autologin';
+
+        if ( $cookie_name = get_conf('autologin_cookie_name') )
+        {
+            $cookie_name_conf = $cookie_name;
+        }
 
         // not logged in (as any user)
-        if ($cookie = get_cookie($cookie_name, TRUE))
+        if ($cookie = get_cookie($cookie_name_conf, TRUE))
         {
             $data = unserialize($cookie);
 
@@ -724,6 +732,20 @@ class Authr extends CI_Driver_Library
             {
                 if ($user = $this->autologin->get($data['user_id'], md5($data['key'])))
                 {
+                    // Fail - banned
+                    if ($user->banned == 1)
+                    {
+                        set_message('error', _x('auth_banned_account', $user->ban_reason));
+                        return FALSE;
+                    }
+
+                    // Fail - deleted
+                    if ($user->deleted == 1)
+                    {
+                        set_message('error', _x('auth_deleted_account'));
+                        return FALSE;
+                    }
+
                     $activated = $user->activated;
 
                     // Login user
@@ -739,7 +761,7 @@ class Authr extends CI_Driver_Library
                     }
 
                     // Renew users cookie to prevent it from expiring
-                    $this->set_cookie($cookie);
+                    $this->_set_cookie($data['key'], $data['user_id']);
 
                     $this->users->update_login_info($user->id);
                 }
@@ -755,15 +777,16 @@ class Authr extends CI_Driver_Library
      * @param   int
      * @return  bool
      */
-    public function create_autologin($user_id)
+    public function create_autologin( $user_id )
     {
+        // somehow i need to use $this->generate_random_key()
         $key = substr(md5(uniqid(mt_rand().get_cookie(config_item('sess_cookie_name')))), 0, 16);
 
         $this->autologin->purge($user_id);
 
         if ($this->autologin->set($user_id, md5($key)))
         {
-            $this->set_cookie(serialize(array('user_id' => $user_id, 'key' => $key)));
+            $this->_set_cookie( $user_id, $key );
             return TRUE;
         }
         
@@ -772,22 +795,35 @@ class Authr extends CI_Driver_Library
 
     // -------------------------------------------------------------------------
 
-    protected function set_cookie($value)
+    protected function _set_cookie( $user_id, $key )
     {
+        $cookie_name_conf = 'autologin';
+        $cookie_life_conf = config_item('sess_expiration');
+
+        if ( $cookie_name = get_conf('autologin_cookie_name') )
+        {
+            $cookie_name_conf = $cookie_name;
+        }
+
+        if ( $cookie_life = get_conf('autologin_cookie_life') )
+        {
+            $cookie_life_conf = $cookie_life;
+        }
+
         set_cookie(array(
-            'name'   => get_conf('autologin_cookie_name'),
-            'value'  => $value,
-            'expire' => get_conf('autologin_cookie_life')
+            'name'   => $cookie_name_conf,
+            'value'  => serialize(array('user_id' => $user_id, 'key' => $key)),
+            'expire' => $cookie_life_conf
             ));
     }
 
     // -------------------------------------------------------------------------
 
-    public function update_role($role_data, $role_id = NULL, $perms = array())
+    public function update_role( $role_data, $role_id = NULL, $perms = array() )
     {
         if (!($return = $this->edit_role($role_data, $role_id = NULL, $perms = array())))
         {
-            Messg::set('error', 'Something Wrong!');
+            set_message('error', 'Something Wrong!');
         }
 
         return $return;
@@ -801,7 +837,7 @@ class Authr extends CI_Driver_Library
      * @param string $permission: The permission you want to check for from the `permissions.permission` table.
      * @return bool
      */
-    public function is_permited($permission)
+    public function is_permited( $permission )
     {
         // if (!$this->perm_exists($permission))
         // {
@@ -848,7 +884,7 @@ class Authr extends CI_Driver_Library
      */
     public function generate_random_key()
     {
-        if (function_exists('openssl_random_pseudo_bytes'))
+        if (function_exists( 'openssl_random_pseudo_bytes') )
         {
             $key = openssl_random_pseudo_bytes(1024, $cstrong).microtime().mt_rand();
         }
@@ -859,19 +895,6 @@ class Authr extends CI_Driver_Library
         }
 
         return md5($key);
-    }
-
-    // -------------------------------------------------------------------------
-
-    /**
-     * Check if login attempts exceeded max login attempts (specified in config)
-     *
-     * @param   string
-     * @return  bool
-     */
-    public function is_max_attempts_exceeded($login)
-    {
-        return $this->login_attempt->get_num($login) >= Setting::get('auth_login_max_attempts');
     }
 }
 

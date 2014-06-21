@@ -346,7 +346,7 @@ class Former
     {
         if (empty($fields))
         {
-            Messg::set('error', 'You can\'t give me an empty field.');
+            set_message('error', 'You can\'t give me an empty field.');
             return FALSE;
         }
 
@@ -393,7 +393,7 @@ class Former
     {
         if (count($buttons) === 0)
         {
-            Messg::set('error', 'You can\'t give me an empty button.');
+            set_message('error', 'You can\'t give me an empty button.');
             return FALSE;
         }
 
@@ -1057,14 +1057,15 @@ class Former
                 // Recaptcha field
                 case 'recaptcha':
                     $this->_ci->load->helper('recaptcha');
-                    $input = recaptcha_get_html(Setting::get('auth_recaptcha_public_key'));
+                    $input = recaptcha_get_html(get_setting('auth_recaptcha_public_key'));
                     break;
 
                 // Captcha field
                 case 'captcha':
-                    $captcha_url = base_url(get_conf('cool_captcha_folder').'captcha'.EXT);
-                    $image_id = 'captcha-'.$id.'-img';
-                    $input_id = 'captcha-'.$id.'-input';
+                    $captcha     = str_replace(FCPATH, '', get_conf('base_path'));
+                    $captcha_url = base_url($captcha.'vendor/captcha/captcha'.EXT);
+                    $image_id    = 'captcha-'.$id.'-img';
+                    $input_id    = 'captcha-'.$id.'-input';
 
                     $input = img(array(
                         'src'   => $captcha_url,

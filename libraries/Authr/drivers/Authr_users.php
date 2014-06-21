@@ -276,7 +276,7 @@ class Authr_users extends CI_Driver
      */
     public function activate( $user_id, $activation_key )
     {
-        $key = (bool) Setting::get('auth_email_activation')
+        $key = (bool) get_setting('auth_email_activation')
             ? 'new_email_key'
             : 'new_password_key';
         
@@ -318,7 +318,7 @@ class Authr_users extends CI_Driver
      */
     public function purge_na()
     {
-        $expired = time() - Setting::get('auth_email_act_expire');
+        $expired = time() - get_setting('auth_email_act_expire');
 
         $this->db->delete( $this->table['users'], array(
             'activated' => 0,
@@ -338,7 +338,7 @@ class Authr_users extends CI_Driver
     {
         foreach ( array( 'blacklist', 'blacklist_prepend', 'exceptions' ) as $setting )
         {
-            $$setting  = array_map( 'trim', explode( ',', Setting::get( 'auth_username_'.$setting ) ) );
+            $$setting  = array_map( 'trim', explode( ',', get_setting( 'auth_username_'.$setting ) ) );
         }
 
         // Generate complete list of blacklisted names
@@ -579,7 +579,7 @@ class Authr_users extends CI_Driver
         $user_data['new_password_requested'] = NULL;
         $user_data['last_login']             = date('Y-m-d H:i:s');
 
-        if ( Setting::get('auth_login_record_ip') )
+        if ( get_setting('auth_login_record_ip') )
         {
             $user_data['last_ip'] = $this->_ci->input->ip_address();
         }

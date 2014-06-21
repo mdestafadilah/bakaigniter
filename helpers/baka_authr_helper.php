@@ -27,8 +27,8 @@
  */
 function login_by()
 {
-    $login_by_username  = ( (bool) Setting::get('auth_login_by_username') AND (bool) Setting::get('auth_use_username') );
-    $login_by_email     = (bool) Setting::get('auth_login_by_email');
+    $login_by_username  = ( (bool) get_setting('auth_login_by_username') AND (bool) get_setting('auth_use_username') );
+    $login_by_email     = (bool) get_setting('auth_login_by_email');
 
     if ( $login_by_username AND $login_by_email )
     {

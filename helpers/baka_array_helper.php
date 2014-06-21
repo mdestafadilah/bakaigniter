@@ -11,19 +11,6 @@
 
 // -----------------------------------------------------------------------------
 
-class bakaObject extends stdClass {}
-
-// -----------------------------------------------------------------------------
-
-function print_pre($array)
-{
-    echo '<pre>';
-    print_r($array);
-    echo '</pre>';
-}
-
-// -----------------------------------------------------------------------------
-
 /**
  * Converting an array into object
  * 
@@ -32,7 +19,7 @@ function print_pre($array)
  */
 function array_to_object( array $array )
 {
-    $obj = new bakaObject;
+    $obj = new stdClass;
 
     foreach ( $array as $modul => $prop )
     {
@@ -96,7 +83,9 @@ function baka_array_search ( $needle, $haystack )
             if ($needle === $value OR ($value != FALSE AND $value != NULL))
             {
                 if ($value == NULL)
+                {
                     return array($current_key);
+                }
                 
                 return array_merge(array($current_key), $value);
             }
@@ -114,14 +103,18 @@ function array_insert_after_node( $array, $after_key, $index, $value)
     $keys   = array_keys($array);
 
     if (in_array($after_key, $keys) === FALSE)
+    {
         return FALSE;
+    }
 
     foreach ($array as $id => $item)
     {
         $result[$id] = $item;
 
         if ($id === $after_key)
+        {
             $result[$index] = $value;
+        }
     }
 
     return $result;

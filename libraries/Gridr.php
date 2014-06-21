@@ -60,7 +60,7 @@ class Gridr
         $this->_ci =& get_instance();
 
         $this->offset = $this->_ci->uri->segment($this->segment);
-        $this->limit  = Setting::get('app_data_show_limit');
+        $this->limit  = get_setting('app_data_show_limit');
 
         if (!empty($configs))
         {

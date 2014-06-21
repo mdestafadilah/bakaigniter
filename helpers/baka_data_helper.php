@@ -11,34 +11,40 @@
 
 // -----------------------------------------------------------------------------
 
-/**
- * Convert Boolean to String
- *
- * @param   bool    $bool  Variable that you want to convert
- * @param   bool    $uc    Are you want return it uppercased
- *
- * @return  string
- */
-function bool_to_str( $bool, $uc = FALSE )
+function return_bytes($val)
 {
-	$bool = (bool) $bool;
-	$ret = $bool ? 'ya' : 'tidak';
+    if (!is_string($val))
+    {
+        return FALSE;
+    }
 
-	return $uc ? strtoupper( $ret ) : $ret;
+    $val    = trim($val);
+    $last   = strtolower($val[strlen($val)-1]);
+
+    switch ($last)
+    {
+        case 'g': $val *= 1024;
+        case 'm': $val *= 1024;
+        case 'k': $val *= 1024;
+    }
+
+    return $val;
 }
 
 // -----------------------------------------------------------------------------
 
-/**
- * Convert Boolean to Integer
- *
- * @param   bool    $bool  Variable that you want to convert
- *
- * @return  string
- */
-function bool_to_int( $bool )
+function format_size($size)
 {
-	return $bool ? 1 : 0;
+    $sizes  = Array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
+    $y      = $sizes[0];
+
+    for ($i = 1; (($i < count($sizes)) && ($size >= 1024)); $i++)
+    {
+        $size   = $size / 1024;
+        $y      = $sizes[$i];
+    }
+
+    return round($size, 2).' <span class="muted">'.$y.'</span>';
 }
 
 // -----------------------------------------------------------------------------
@@ -47,14 +53,14 @@ function bool_to_int( $bool )
 
 function format_date($string = '')
 {
-    return bdate(Setting::get('app_date_format'), $string);
+    return bdate(get_setting('app_date_format'), $string);
 }
 
 // -----------------------------------------------------------------------------
 
 function format_datetime($string = '')
 {
-    return bdate(Setting::get('app_datetime_format'), $string);
+    return bdate(get_setting('app_datetime_format'), $string);
 }
 
 // -----------------------------------------------------------------------------

@@ -65,25 +65,13 @@ bakaigniter/
 
 ## Installation
 
-1. **Move to** `third_party` folder:
+1. **I'm assuming** youre on your CI root path, if not:
 
    ```bash
-   $ cd APPPATH/third_party
+   $ cd path/to/your/ci-project
    ```
 
 2. **Download it**
-
-   * **Clone this repo** into your:
-
-     ```bash
-     $ git clone git@github.com:feryardiant/bakaigniter.git
-     ```
-
-   * **Use it as Submodule** into your:
-
-     ```bash
-     $ git submodule add git@github.com:feryardiant/bakaigniter.git bakaigniter
-     ```
 
    * **Download using wget** archive of this repo and extract it:
 
@@ -97,12 +85,14 @@ bakaigniter/
      $ curl -L https://github.com/feryardiant/bakaigniter/archive/master.tar.gz | tar xz
      ```
 
-3. **Import sample tables** from `database.sql` into your database:
+3. **Import sample tables** from `samples/database.sql` into your database:
 
    ```bash
    $ cd bakaigniter
-   $ mysql -u{username} [-p{password}] {database} < database.sql
+   $ mysql -u{username} [-p{password}] {database} < samples/database.sql
    ```
+
+   **Note:** change `{username}`, `{password}` and `{database}` with your own.
 
 4. **Recognise it** by edit `APPPATH/config/autoload.php` file:
 
@@ -114,28 +104,20 @@ bakaigniter/
 
    ```php
    // Libraries
-    $autoload['libraries'] = array(
-        'database',                               // Required!
-        'ignite',                                 // Required!
-        );
+   // if you want to autoload BakaIgniter package, make sure to
+   // autoload Database before Ignite class
+   $autoload['libraries'] = array('database','ignite');
 
-    // Helpers
-    $autoload['helper'] = array(
-        'common',                                 // Required!
-        'url',                                    // Required!
-        'date',                                   // Required!
-        'array',                                  // Optional!
-        'data',                                   // Optional!
-        );
+   // Helpers
+   // if you want to autoload url helper, make sure to
+   // autoload baka_common before it
+   $autoload['helper'] = array('baka_common','url');
 
-    // Configs
-    $autoload['config'] = array(
-        'bakaigniter',                            // Required!
-        'lang_codes',                             // Optional!
-        );
+   // Configs
+   $autoload['config'] = array('bakaigniter'); // Required!
 
-    // Language
-    $autoload['language'] = array('bakaigniter'); // Required!
+   // Language
+   $autoload['language'] = array('bakaigniter'); // Required!
    ```
 
 6. **Done!**

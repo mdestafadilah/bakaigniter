@@ -294,16 +294,13 @@ class Utily
     {
         self::$_ci->load->helpers('directory', 'date');
 
-        $dir    = array();
-        $prefix = 'backup_'.str_replace(' ', '_', strtolower(get_conf('app_name'))).'_';
+        $dir = array();
 
         foreach (directory_map($this->_destination) as $key => $value)
         {
             if (is_array($value))
             {
-                $time = str_replace($prefix, '', $key);
-                // $dir[$key]['date'] = $time;
-                $dir[$key]['date'] = mdate('%d-%m-%Y %h:%i', $time);
+                $dir[$key]['date']   = mdate('%d %F %Y %h:%i', substr($key, -10, 10));
                 $dir[$key]['tables'] = $value;
             }
         }
@@ -329,13 +326,13 @@ class Utily
     {
         if ( !is_dir( $this->_destination ) )
         {
-            Messg::set('error', _x('utily_backup_folder_not_exists', $this->_destination));
+            set_message('error', _x('utily_backup_folder_not_exists', $this->_destination));
             return FALSE;
         }
 
         if ( !is_writable( $this->_destination ) )
         {
-            Messg::set('error', _x('utily_backup_folder_not_writable', $this->_destination));
+            set_message('error', _x('utily_backup_folder_not_writable', $this->_destination));
             return FALSE;
         }
 
@@ -379,12 +376,12 @@ class Utily
 
         if (file_exists($destination.'.zip'))
         {
-            Messg::set('success', _x('utily_backup_process_success'));
+            set_message('success', _x('utily_backup_process_success'));
             return TRUE;
         }
         else
         {
-            Messg::set('error', _x('utily_backup_process_failed'));
+            set_message('error', _x('utily_backup_process_failed'));
             return FALSE;
         }
     }
@@ -409,7 +406,7 @@ class Utily
 
             if (!($file_path = self::$_ci->archive->init($this->_destination.$file_name)->extract()))
             {
-                Messg::set('error', 'Extract gagal');
+                set_message('error', 'Extract gagal');
                 return FALSE;
             }
 
@@ -446,7 +443,7 @@ class Utily
 
         foreach ($map as $key => $value)
         {
-            // Messg::set('success', $file_path.$key);
+            // set_message('success', $file_path.$key);
             if (get_ext($value) == 'sql')
             {
                 @shell_exec( 'mysql -u'.self::$_ci->db->username.$password.' '.self::$_ci->db->database.' <'.$file_path.$value );
@@ -455,7 +452,7 @@ class Utily
                 $value = str_replace('_', ' ', $value);
                 $value = ucfirst($value);
 
-                Messg::set('success', 'Berhasil memulihkan tabel '.$value);
+                set_message('success', 'Berhasil memulihkan tabel '.$value);
             }
             else if (is_array($value))
             {

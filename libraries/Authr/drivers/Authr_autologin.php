@@ -40,7 +40,7 @@ class Authr_autologin extends CI_Driver
      */
     public function get( $user_id, $key )
     {
-        $query = $this->db->select('a.id, a.username, a.activated')
+        $query = $this->db->select('a.id, a.username, a.activated, a.banned, a.deleted')
                           ->from($this->table['users'].' a')
                           ->join($this->table['user_autologin'].' b', 'b.user_id = a.id')
                           ->where('b.user_id', $user_id)
@@ -48,7 +48,9 @@ class Authr_autologin extends CI_Driver
                           ->get();
 
         if ( $query->num_rows() == 1 )
+        {
             return $query->row();
+        }
         
         return FALSE;
     }

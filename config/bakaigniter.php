@@ -14,16 +14,16 @@
 */
 
 // Baka Igniter Application Name
-$config['baka_app_name']            = '';
+$config['baka_app_name']            = 'BPMPPT';
 
 // Baka Igniter Application Description
-$config['baka_app_desc']            = '';
+$config['baka_app_desc']            = 'Aplikasi pengelolaan data perijinan di BPMPPT Kab. Pekalongan';
 
 // Baka Igniter Application Description
-$config['baka_app_client']          = '';
+$config['baka_app_client']          = 'BPMPPT Kab. Pekalongan';
 
 // Baka Igniter Application Version
-$config['baka_app_version']         = '';
+$config['baka_app_version']         = '0.1.5';
 
 // Baka Igniter Application Author
 $config['baka_app_author']          = 'Fery Wardiyanto';
@@ -125,15 +125,20 @@ $config['baka_thumb_width']         = 100;
 
 /*
 |--------------------------------------------------------------------------
-| Security settings
-|
-| The library uses PasswordHash library for operating with hashed passwords.
-| 'phpass_hash_portable' = Can passwords be dumped and exported to another server.
-|                           If set to FALSE then you won't be able to use this database on another server.
-| 'phpass_hash_strength' = Password hash strength.
+| Authr settings
 |--------------------------------------------------------------------------
 */
+
+// Can passwords be dumped and exported to another server.
+$config['baka_autologin_cookie_name'] = 'autologin';
+
+// Can passwords be dumped and exported to another server.
+$config['baka_autologin_cookie_life'] = 86400;
+
+// Can passwords be dumped and exported to another server.
 $config['baka_phpass_hash_portable'] = FALSE;
+
+// Password hash strength.
 $config['baka_phpass_hash_strength'] = 8;
 
 

@@ -349,14 +349,14 @@ class Median
                 // Log it
                 log_message('debug', '#BakaIgniter: Media->do_upload file "'.$uploaded_data['orig_name'].'" not uploaded due to this error(s): '.$error_message.'.');
                 // Set error message
-                Messg::set('error', $error_message);
+                set_message('error', $error_message);
                 // Return it
                 return FALSE;
             }
         }
         else
         {
-            Messg::set('error', $_FILES[$this->field_name]);
+            set_message('error', $_FILES[$this->field_name]);
             return FALSE;
         }
     }

@@ -94,19 +94,19 @@ class Archive extends CI_Driver_Library
 
         if (!in_array($this->_type, $this->_formats))
         {
-            Messg::set('error', 'Sorry, but this File type is unsupported currently.');
+            set_message('error', 'Sorry, but this File type is unsupported currently.');
             $error = TRUE;
         }
 
         if (!is_file($file_path) AND !file_exists($file_path))
         {
-            Messg::set('error', 'File '.$file_path.' is not on your server.');
+            set_message('error', 'File '.$file_path.' is not on your server.');
             $error = TRUE;
         }
 
         if (!is_readable($file_path))
         {
-            Messg::set('error', 'File '.$file_path.' is not readble.');
+            set_message('error', 'File '.$file_path.' is not readble.');
             $error = TRUE;
         }
 
@@ -125,13 +125,13 @@ class Archive extends CI_Driver_Library
 
         if (!in_array($this->_type, $this->_formats))
         {
-            Messg::set('error', 'Sorry, but '.$this->_type.' format is unsupported currently.');
+            set_message('error', 'Sorry, but '.$this->_type.' format is unsupported currently.');
             return FALSE;
         }
 
         if (is_file($file_path) AND file_exists($file_path))
         {
-            Messg::set('error', 'File '.$file_path.' is already exists.');
+            set_message('error', 'File '.$file_path.' is already exists.');
             return FALSE;
         }
 
@@ -139,7 +139,7 @@ class Archive extends CI_Driver_Library
 
         if (!is_really_writable($dirname))
         {
-            Messg::set('error', 'Directory '.$dirname.' is not writable.');
+            set_message('error', 'Directory '.$dirname.' is not writable.');
             return FALSE;
         }
 
@@ -180,13 +180,13 @@ class Archive extends CI_Driver_Library
 
         if ($overwrite === FALSE and is_dir($target_dir))
         {
-            Messg::set('error', 'Target '.$target_dir.' is already exists.');
+            set_message('error', 'Target '.$target_dir.' is already exists.');
             return FALSE;
         }
 
         if (!is_really_writable(dirname($target_dir)))
         {
-            Messg::set('error', 'Target '.$target_dir.' is not writable.');
+            set_message('error', 'Target '.$target_dir.' is not writable.');
             return FALSE;
         }
 

@@ -11,7 +11,7 @@
 
 // -----------------------------------------------------------------------------
 
-function _x($lang_line, $replacement = '')
+function _x( $lang_line, $replacement = '' )
 {
     $CI_lang =& get_instance()->lang;
 
@@ -33,12 +33,19 @@ function _x($lang_line, $replacement = '')
 
 // -----------------------------------------------------------------------------
 
-function redirect($uri = '', $method = 'location', $http_response_code = 302)
+function redirect( $uri = '', $method = 'location', $http_response_code = 302 )
 {
     if ( IS_CLI )
     {
-        echo "Redirectings: $uri\n";
-        exit;
+        if ( !defined('PROJECT_DIR') )
+        {
+            echo "Redirecting: $uri\n";
+            exit;            
+        }
+        else
+        {
+            return;
+        }
     }
 
     if ( ! preg_match('#^https?://#i', $uri))
@@ -65,7 +72,7 @@ function redirect($uri = '', $method = 'location', $http_response_code = 302)
  * @param   string  $url  URL that want tobe validated
  * @return  bool
  */
-function is_valid_url($url)
+function is_valid_url( $url )
 {
     $url_pattern = "/^(http(s?):\/\/|(\/\/?))/";
 
@@ -80,7 +87,7 @@ function is_valid_url($url)
  * @param   string  $EMAIL  Email that want tobe validated
  * @return  bool
  */
-function is_valid_email($email)
+function is_valid_email( $email )
 {
     $email_pattern = "/([a-zA-Z0-9_\.\-\+]+)@([a-zA-Z0-9\-]+)\.([a-zA-Z0-9\-\.]*)/i";
 
@@ -89,40 +96,107 @@ function is_valid_email($email)
 
 // -----------------------------------------------------------------------------
 
-function return_bytes($val)
+/**
+ * CI default get spesific config item with 'baka_' prefix
+ *
+ * @param   string  $name  Config name
+ *
+ * @return  mixed
+ */
+function get_conf( $name )
 {
-    if (!is_string($val))
-    {
-        return FALSE;
-    }
-
-    $val    = trim($val);
-    $last   = strtolower($val[strlen($val)-1]);
-
-    switch ($last)
-    {
-        case 'g': $val *= 1024;
-        case 'm': $val *= 1024;
-        case 'k': $val *= 1024;
-    }
-
-    return $val;
+    return config_item( 'baka_'.$name );
 }
 
 // -----------------------------------------------------------------------------
 
-function format_size($size)
+/**
+ * Get default application setting
+ *
+ * @param   string  $name  Setting name
+ * @return  mixed
+ */
+function get_setting( $name )
 {
-    $sizes  = Array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
-    $y      = $sizes[0];
+    $bakaigniter =& Bakaigniter::get_instance();
 
-    for ($i = 1; (($i < count($sizes)) && ($size >= 1024)); $i++)
-    {
-        $size   = $size / 1024;
-        $y      = $sizes[$i];
-    }
+    return $bakaigniter->get_setting( $name );
+}
 
-    return round($size, 2).' <span class="muted">'.$y.'</span>';
+// -----------------------------------------------------------------------------
+
+/**
+ * Get application message(s)
+ *
+ * @param   string  $level  Message level
+ * @return  mixed
+ */
+function get_message( $level = FALSE )
+{
+    $bakaigniter =& Bakaigniter::get_instance();
+
+    return $bakaigniter->get_message( $level );
+}
+
+// -----------------------------------------------------------------------------
+
+/**
+ * Set application message(s)
+ *
+ * @param   mixed   $level     Message level
+ * @param   string  $msg_item  Message Item
+ * @return  mixed
+ */
+function set_message( $level, $msg_item )
+{
+    $bakaigniter =& Bakaigniter::get_instance();
+
+    return $bakaigniter->set_message( $level, $msg_item );
+}
+
+// -----------------------------------------------------------------------------
+
+/**
+ * Get file extension from path
+ *
+ * @param   string  $path  Full file path
+ * @return  string
+ */
+function get_ext( $path )
+{
+    return pathinfo( $path, PATHINFO_EXTENSION );
+}
+
+// -----------------------------------------------------------------------------
+
+/**
+ * Convert Boolean to String
+ *
+ * @param   bool    $bool  Variable that you want to convert
+ * @param   bool    $uc    Are you want return it uppercased
+ *
+ * @return  string
+ */
+function bool_to_str( $bool, $uc = FALSE )
+{
+    $bool = (bool) $bool;
+    $ret = $bool ? 'ya' : 'tidak';
+
+    return $uc ? strtoupper( $ret ) : $ret;
+}
+
+// -----------------------------------------------------------------------------
+
+/**
+ * Convert Boolean to Integer
+ *
+ * @param   bool    $bool  Variable that you want to convert
+ *
+ * @return  string
+ */
+function bool_to_int( $bool )
+{
+    return $bool ? 1 : 0;
 }
 
 // -----------------------------------------------------------------------------
@@ -141,29 +215,11 @@ function baka_echo($anu)
 
 // -----------------------------------------------------------------------------
 
-/**
- * CI default get spesific config item with 'baka_' prefix
- *
- * @param   string  $name  Config name
- *
- * @return  mixed
- */
-function get_conf($name)
+function print_pre($array)
 {
-    return config_item('baka_'.$name);
-}
-
-// -----------------------------------------------------------------------------
-
-/**
- * Get file extension from path
- *
- * @param   string  $path  Full file path
- * @return  string
- */
-function get_ext($path)
-{
-    return pathinfo($path, PATHINFO_EXTENSION);
+    echo '<pre>';
+    print_r($array);
+    echo '</pre>';
 }
 
 /* End of file common_helper.php */
