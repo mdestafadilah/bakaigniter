@@ -37,7 +37,7 @@
 |
 */
 
-$autoload['packages'] = array(APPPATH.'bakaigniter');
+$autoload['packages'] = array( APPPATH.'bakaigniter' );
 
 
 /*
@@ -81,7 +81,7 @@ $autoload['helper'] = array( 'baka_common', 'url' );
 |
 */
 
-$autoload['config'] = array( 'lang_codes' );
+$autoload['config'] = array();
 
 
 /*

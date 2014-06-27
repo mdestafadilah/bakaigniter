@@ -19,7 +19,6 @@ _*
 *.vi
 *~
 dvccas
-phpunit.log.json
 *.zip
 
 # IDEs project files/settings
@@ -35,7 +34,7 @@ nbactions.xml
 *.sublime-*
 *.komodoproject
 .komodotools
-.idea
+.idea/
 
 # Dependencies Folder
 node_modules/
@@ -44,8 +43,8 @@ bower_components/
 # Ignore Application Specifics
 
 # but leave there Application Specifics
+!.git*
 !.htaccess
 !index.html
 !.travis.yml
-!.git*
 !.editorconfig

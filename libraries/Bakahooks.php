@@ -66,7 +66,7 @@ class Bakahooks
         // var_dump(APPPATH);
         if ( !class_exists('\php_error\ErrorHandler') )
         {
-            require_once(dirname(dirname(__FILE__)).'/vendor/php_error'.EXT);
+            require_once(dirname(__FILE__).'/vendor/php_error'.EXT);
         }
 
         $handler = new \php_error\ErrorHandler(array(
@@ -91,7 +91,7 @@ class Bakahooks
             case 'development':
                 $handler->turnOn();
                 break;
-        
+
             case 'testing':
             case 'production':
                 $handler->turnOff();
