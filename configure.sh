@@ -4,7 +4,7 @@ wget https://github.com/EllisLab/CodeIgniter/archive/2.2.0.tar.gz -qO - | tar xz
 
 echo "Preparing"
 mkdir samples/application/bakaigniter
-for dir in config helpers language libraries vendor; do
+for dir in config helpers language libraries; do
     mkdir samples/application/bakaigniter/$dir/
     cp -r $dir/* samples/application/bakaigniter/$dir/
     rm -rf $dir

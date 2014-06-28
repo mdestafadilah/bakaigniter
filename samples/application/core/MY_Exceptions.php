@@ -14,7 +14,7 @@ class MY_Exceptions extends CI_Exceptions
     {
         parent::__construct();
 
-        $this->_template_path = APPPATH.'views/errors/';
+        $this->_template_path = APPPATH.'errors/';
 
         log_message('debug', "#BakaIgniter: Core Exceptions Class Initialized");
     }
@@ -45,12 +45,12 @@ class MY_Exceptions extends CI_Exceptions
         {
             ob_end_flush();
         }
-        
+
         ob_start();
         include( $this->_template_path.$template.$alt.EXT );
         $buffer = ob_get_contents();
         ob_end_clean();
-        
+
         return $buffer;
     }
 
@@ -64,7 +64,7 @@ class MY_Exceptions extends CI_Exceptions
      * @param   string  the error string
      * @param   string  the error filepath
      * @param   string  the error line number
-     * 
+     *
      * @return  string
      */
     function show_php_error( $severity, $message, $filepath, $line )

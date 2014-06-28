@@ -8,7 +8,7 @@
  * This will "override" later functions meant to be defined
  * in core\Common.php, so they throw erros instead of output strings
  */
- 
+
 function show_error($message, $status_code = 500, $heading = 'An Error Was Encountereds')
 {
 	throw new PHPUnit_Framework_Exception('CI Error: '.$heading.' -> '.$message, $status_code);
@@ -34,7 +34,7 @@ function set_status_header($code = 200, $text = '')
  * Just simplify your path declaration
  * -----------------------------------------------------------------------------
  */
-$dir = realpath(dirname(dirname(dirname(__FILE__))).'/').'/';
+$dir = realpath(dirname(dirname(__FILE__)).'/').'/';
 
 /**
  * -----------------------------------------------------------------------------
@@ -62,5 +62,5 @@ if (file_exists(PROJECT_DIR . 'vendor/autoload.php'))
  *
  * Bootstrap CodeIgniter from index.php as usual
  */
- 
+
 require_once $dir.'index.php';
