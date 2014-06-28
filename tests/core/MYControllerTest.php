@@ -4,11 +4,11 @@
  * CodeIgniter Baka Pack
  *
  * My very own Codeigniter Boilerplate Library that used on all of my projects
- * 
+ *
  * NOTICE OF LICENSE
- * 
+ *
  * Licensed under the Open Software License version 3.0
- * 
+ *
  * This source file is subject to the Open Software License (OSL 3.0) that is
  * bundled with this package in the files license.txt / license.rst.  It is
  * also available through the world wide web at this URL:
@@ -29,39 +29,23 @@
  * @subpackage  Core
  * @category    Controller
  */
-class BakaControllerTest extends PHPUnit_Framework_TestCase
+class MYController_TestCase extends BakaIgniter_TestCase
 {
-    private $_ci;
     private $_bc = FALSE;
 
     public function setUp()
     {
-        $this->_ci =& get_instance();
-
-        if (class_exists('BAKA_Controller'))
+        if (class_exists('MY_Controller'))
         {
-            $this->_bc = new BAKA_Controller;
+            $this->_bc = new MY_Controller;
         }
     }
 
     public function testInstance()
     {
         $this->assertNotFalse($this->_bc);
-
-        $this->assertContainsOnlyInstancesOf('BAKA_Controller', array($this->_bc));
-
-        $this->assertContainsOnlyInstancesOf('CI_Controller', array($this->_bc));
-
-        $this->assertNotCount(0, $this->_bc->data);
-    }
-
-    public function testPanelContent()
-    {
-        $this->assertContains('panel_title', $this->_bc->data);
-
-        $this->assertContains('panel_body', $this->_bc->data);
     }
 }
 
-/* End of file BAKA_Controller.php */
-/* Location: ./application/core/BAKA_Controller.php */
+/* End of file MY_Controller.php */
+/* Location: ./application/core/MY_Controller.php */
