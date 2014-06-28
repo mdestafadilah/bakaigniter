@@ -29,12 +29,21 @@
  * @subpackage  Core
  * @category    Controller
  */
-class MYController_TestCase extends BakaIgniter_TestCase
+class MYController_TestCase extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Reference to CodeIgniter
+     *
+     * @var resource
+     */
+    protected $ci;
+
     private $_bc = FALSE;
 
     public function setUp()
     {
+        $this->ci =& get_instance();
+
         if (class_exists('MY_Controller'))
         {
             $this->_bc = new MY_Controller;

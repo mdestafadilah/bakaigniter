@@ -151,7 +151,7 @@ INSERT INTO `auth_role_permissions` (`role_id`, `permission_id`) VALUES
 (1, 13),
 (1, 14),
 (1, 15),
-(2, 1));
+(2, 1);
 
 -- --------------------------------------------------------
 
@@ -215,7 +215,7 @@ INSERT INTO `auth_users` (`id`, `username`, `password`, `email`, `display`, `cre
 
 DROP TABLE IF EXISTS `auth_user_autologin`;
 CREATE TABLE IF NOT EXISTS `auth_user_autologin` (
-  `key_id` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL AUTO_INCREMENT,
+  `key_id` char(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `user_id` int(10) unsigned NOT NULL DEFAULT '0',
   `user_agent` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `last_ip` varchar(40) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
