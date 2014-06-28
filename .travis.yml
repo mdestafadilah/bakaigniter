@@ -8,9 +8,9 @@ before_install:
   - chmod +x configure.sh
   - sh configure.sh
 install:
-  - mysql -e 'drop database if exists bpmppt_test;'
-  - mysql -e 'create database bpmppt_test;'
-  - mysql -utravis bpmppt_test < database.sql
+  - mysql -e 'drop database if exists bakaigniter;'
+  - mysql -e 'create database bakaigniter;'
+  - mysql -utravis bakaigniter < database.sql
 script:
   - phpunit
 matrix:
